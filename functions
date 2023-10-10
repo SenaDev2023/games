@@ -1,1 +1,49 @@
+string[] inputs; // Declare a string array.
+inputs = Console.ReadLine().Split(' '); // Assign the array to the result of splitting the first line of input on the space character.
+int R = int.Parse(inputs[0]); // Declare an integer variable called R and assign it the value of the first element of the inputs array, converted to an integer.
+int C = int.Parse(inputs[1]); // Declare an integer variable called C and assign it the value of the second element of the inputs array, converted to an integer.
 
+for (int i = 0; i < R; i++) // Outer loop iterates over the rows of the matrix.
+{
+    inputs = Console.ReadLine().Split(' '); // For each row, assign the inputs array to the result of splitting the next line of input on the space character.
+
+    for (int j = 0; j < C; j++) // Inner loop iterates over the columns of the matrix.
+    {
+        int x = int.Parse(inputs[j]); // For each row and column, parse the corresponding element of the inputs array into an integer and assign it to the variable x.
+    }
+}
+
+
+//recursive functions
+static int P(int[][] m, int i, int j)
+{
+    // If the current cell is the bottom-right corner, then return 1.
+    if (i == m.Length - 1 && j == m[0].Length - 1)
+    {
+        return 1;
+    }
+
+    // If the current cell is blocked, then return 0.
+    if (m[i][j] == 1)
+    {
+        return 0;
+    }
+
+    // Declare two variables to store the number of paths from the cell below the current cell and the number of paths from the cell to the right of the current cell.
+    int r = 0;
+    int d = 0;
+
+    // If the cell below the current cell is within the bounds of the matrix, then calculate the number of paths from that cell.
+    if (i + 1 < m.Length)
+    {
+        d = P(m, i + 1, j);
+    }
+
+    // If the cell to the right of the current cell is within the bounds of the matrix, then calculate the number of paths from that cell.
+    if (j + 1 < m[0].Length)
+    {
+        r = P(m, i, j + 1);
+    }
+
+    // Return the sum of the number of paths from the cell below the current cell and the number of paths from the cell to the right of the current cell.
+    return r + d;
